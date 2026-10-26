@@ -144,6 +144,7 @@
             btnAgregarReserva.TabIndex = 11;
             btnAgregarReserva.Text = "Agregar reserva";
             btnAgregarReserva.UseVisualStyleBackColor = true;
+            btnAgregarReserva.Click += btnAgregarReserva_Click;
             // 
             // btnBuscarCliente
             // 
@@ -153,6 +154,7 @@
             btnBuscarCliente.TabIndex = 12;
             btnBuscarCliente.Text = "Buscar cliente";
             btnBuscarCliente.UseVisualStyleBackColor = true;
+            btnBuscarCliente.Click += btnBuscarCliente_Click;
             // 
             // btnVerResumen
             // 
@@ -162,11 +164,12 @@
             btnVerResumen.TabIndex = 13;
             btnVerResumen.Text = "Ver resumen";
             btnVerResumen.UseVisualStyleBackColor = true;
+            btnVerResumen.Click += btnVerResumen_Click;
             // 
             // lblTarifas
             // 
             lblTarifas.AutoSize = true;
-            lblTarifas.Location = new Point(436, 259);
+            lblTarifas.Location = new Point(403, 254);
             lblTarifas.Name = "lblTarifas";
             lblTarifas.Size = new Size(13, 15);
             lblTarifas.TabIndex = 14;
@@ -175,26 +178,26 @@
             // lstReservas
             // 
             lstReservas.FormattingEnabled = true;
-            lstReservas.Location = new Point(44, 259);
+            lstReservas.Location = new Point(12, 254);
             lstReservas.Name = "lstReservas";
-            lstReservas.Size = new Size(335, 154);
+            lstReservas.Size = new Size(381, 154);
             lstReservas.TabIndex = 15;
             // 
             // txtResumen
             // 
-            txtResumen.Location = new Point(492, 89);
+            txtResumen.Location = new Point(548, 71);
             txtResumen.Multiline = true;
             txtResumen.Name = "txtResumen";
             txtResumen.ReadOnly = true;
             txtResumen.ScrollBars = ScrollBars.Vertical;
-            txtResumen.Size = new Size(100, 324);
+            txtResumen.Size = new Size(187, 337);
             txtResumen.TabIndex = 16;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(667, 450);
+            ClientSize = new Size(756, 450);
             Controls.Add(txtResumen);
             Controls.Add(lstReservas);
             Controls.Add(lblTarifas);
