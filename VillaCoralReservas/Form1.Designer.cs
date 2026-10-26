@@ -154,7 +154,6 @@
             btnBuscarCliente.TabIndex = 12;
             btnBuscarCliente.Text = "Buscar cliente";
             btnBuscarCliente.UseVisualStyleBackColor = true;
-            btnBuscarCliente.Click += btnBuscarCliente_Click;
             // 
             // btnVerResumen
             // 
@@ -164,7 +163,6 @@
             btnVerResumen.TabIndex = 13;
             btnVerResumen.Text = "Ver resumen";
             btnVerResumen.UseVisualStyleBackColor = true;
-            btnVerResumen.Click += btnVerResumen_Click;
             // 
             // lblTarifas
             // 

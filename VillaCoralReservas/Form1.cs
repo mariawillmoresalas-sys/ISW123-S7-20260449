@@ -142,11 +142,74 @@ namespace VillaCoralReservas
 
             return Math.Round(subtotal + itbis + servicio, 2);
         }
+
+
+        // Genera un código como "VC-4821" que no esté repetido en la lista
+        private string GenerarCodigo()
+        {
+            string codigo;
+            bool repetido;
+
+            do
+            {
+                codigo = "VC-" + azar.Next(1000, 10000);   // número de 1000 a 9999
+
+                repetido = false;
+                foreach (Reserva r in reservas)
+                {
+                    if (r.Codigo == codigo)
+                    {
+                        repetido = true;
+                        break;   // ya sabemos que está repetido, no hace falta seguir buscando
+                    }
+                }
+            } while (repetido);
+
+            return codigo;
+        }
+
+        private void btnAgregarReserva_Click(object sender, EventArgs e)
+        {
+            // 1) Leer los datos de los controles
+            string cliente = txtCliente.Text.Trim();
+            string tipo = cmbTipoDeHabitacion.Text;
+            DateTime entrada = dtpFechaDeEntrada.Value.Date;
+            int noches = (int)nudNoches.Value;
+            int huespedes = (int)nudHuespedes.Value;
+
+            // 2) Validar
+            string error = ValidarDatos(cliente, tipo, noches, huespedes);
+            if (error != "")
+            {
+                MessageBox.Show(error, "Revisa los datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;   // sale del método: no se agrega nada
+            }
+
+            // 3) Crear la reserva
+            Reserva nueva = new Reserva
+            {
+                Codigo = GenerarCodigo(),
+                Cliente = cliente,
+                Tipo = tipo,
+                Entrada = entrada,
+                Noches = noches,
+                Huespedes = huespedes,
+                Total = CalcularTotal(tipo, entrada, noches)
+            };
+
+            // 4) Guardarla en la lista y mostrarla
+            reservas.Add(nueva);
+            lstReservas.Items.Add(nueva);
+
+            // 5) Dejar listo para la siguiente
+            txtCliente.Clear();
+            txtCliente.Focus();
+        }
     }
-    
-    
-    
-        
-   
-    
+
+
+
+
+
+
 }
