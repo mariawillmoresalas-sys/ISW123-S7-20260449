@@ -48,7 +48,100 @@ namespace VillaCoralReservas
         }
 
 
-         
+
+        // Devuelve cuántos huéspedes caben en cada tipo de habitación
+        private int CapacidadMaxima(string tipo)
+        {
+            switch (tipo)
+            {
+                case "Estándar":
+                    return 2;
+                case "Superior":
+                    return 3;
+                case "Suite":
+                    return 4;
+                default:
+                    return 0;   // tipo desconocido: no cabe nadie
+            }
+        }
+
+
+
+        // Revisa los datos. Si algo está mal devuelve el mensaje; si todo está bien devuelve ""
+        private string ValidarDatos(string cliente, string tipo, int noches, int huespedes)
+        {
+            int capacidad = CapacidadMaxima(tipo);
+
+            bool clienteValido = !string.IsNullOrWhiteSpace(cliente);
+            bool nochesValidas = noches >= 1 && noches <= 30;
+            bool caben = huespedes >= 1 && huespedes <= capacidad;
+
+            if (!clienteValido)
+            {
+                return "Escribe el nombre del cliente.";
+            }
+            else if (!nochesValidas)
+            {
+                return "Las noches deben estar entre 1 y 30.";
+            }
+            else if (!caben)
+            {
+                return $"Una habitación {tipo} admite de 1 a {capacidad} huéspedes.";
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+
+
+        // Recargo según el mes de entrada
+        private decimal RecargoTemporada(DateTime entrada)
+        {
+            return entrada.Month switch
+            {
+                12 or 1 or 2 or 3 or 4 => 0.20m,   // temporada alta
+                7 or 8 => 0.10m,                    // temporada media
+                _ => 0m                             // temporada baja
+            };
+        }
+
+
+
+        // Porcentaje de descuento según la cantidad de noches
+        private decimal PorcentajeDescuento(int noches)
+        {
+            if (noches >= 14)
+            {
+                return 0.15m;
+            }
+            else if (noches >= 7)
+            {
+                return 0.10m;
+            }
+            else
+            {
+                return 0m;
+            }
+        }
+
+
+
+        // Junta todas las reglas del negocio y devuelve el total a pagar
+        private decimal CalcularTotal(string tipo, DateTime entrada, int noches)
+        {
+            decimal tarifa = tarifas[tipo];                 // busca en el diccionario
+            decimal subtotal = tarifa * noches;
+
+            subtotal = subtotal + subtotal * RecargoTemporada(entrada);
+            subtotal = subtotal - subtotal * PorcentajeDescuento(noches);
+
+            decimal itbis = subtotal * 0.18m;
+            decimal servicio = subtotal * 0.10m;
+
+            return Math.Round(subtotal + itbis + servicio, 2);
+        }
     }
     
     
